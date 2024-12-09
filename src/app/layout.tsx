@@ -22,9 +22,6 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider
-      afterSignOutUrl="/"
-      signInUrl="/sign-in"
-      signUpUrl="/sign-up"
       appearance={{
         layout: {
           socialButtonsPlacement: "bottom",

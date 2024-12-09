@@ -6,7 +6,7 @@ export default function Page() {
             <h1 className="text-3xl pb-6 text-[#ffffff]">
                 <strong>Hello there!</strong>
             </h1>
-            <SignIn path="/sign-in" />
+            <SignIn />
         </div>
     );
 }
