@@ -21,7 +21,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      afterSignOutUrl="/"
+      signInUrl="/sign-in"
+      signUpUrl="/sign-up"
+      appearance={{
+        layout: {
+          socialButtonsPlacement: "bottom",
+        },
+      }}>
       <html lang="en">
         <body>
           {children}
