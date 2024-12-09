@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+  }
+}
+
+
+/* CLERK  STYLING*/
+/* Hides the "Secured by Clerk" element */
+.cl-internal-1dauvpw {
+  display: none; /* for the initial loginpage */
+}
+
+.cl-internal-4x6jej {
+  display: none;
+}
+
+.cl-logoImage {
+  border-radius: 50%;
+}
+
+.cl-logoImage:hover {
+  transform: scale(1.1);
+  transition: transform 0.3s ease-in-out;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+}
+
+.cl-logoImage:active {
+  transform: scale(0.9);
+  transition: transform 0.3s ease-in-out;
+  box-shadow: 0 0 10px rgb(238, 255, 0);
+}
