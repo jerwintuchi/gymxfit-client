@@ -5,7 +5,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 
 
 export const metadata: Metadata = {
-  title: "Godstrength",
+  title: "Gymxfit",
   description: "Built by pure Strength.",
   /*{icons: {
     icon: ["/favicon.ico?v=4"],
