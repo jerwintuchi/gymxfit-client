@@ -1,6 +1,6 @@
 "use client";
 
-import { Layout, Users } from "lucide-react";
+import { CalendarClockIcon, Layout } from "lucide-react";
 import { SidebarItem } from "./sidebar-item";
 
 
@@ -11,9 +11,9 @@ const guestRoutes = [
         href: "/"
     },
     {
-        icon: Users,
-        label: "People",
-        href: "/people"
+        icon: CalendarClockIcon,
+        label: "Attendance",
+        href: "/attendance"
     }
 ]
 export const SidebarRoutes = () => {
