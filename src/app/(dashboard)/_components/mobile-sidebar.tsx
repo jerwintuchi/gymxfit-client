@@ -6,10 +6,10 @@ export const MobileSidebar = () => {
     return (
         <div className="text-black">
             <Sheet>
-                <SheetTrigger className="md:hidden pr-4 hover:opacity-75 transition">
+                <SheetTrigger className="md:hidden pr-4 hover:opacity-50 transition">
                     <Menu />
                 </SheetTrigger>
-                <SheetContent side="right" className="p-0 bg-black border-none">
+                <SheetContent side="top" className="p-0 bg-black border-none">
                     {/* Adding an accessible title */}
                     <SheetTitle className="sr-only">Mobile Navigation</SheetTitle>
                     <Sidebar />
