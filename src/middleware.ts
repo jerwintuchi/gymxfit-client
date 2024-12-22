@@ -23,6 +23,7 @@ export const config = {
   publicRoutes: [
     "/sign-in(.*)",  // Sign-in page
     "/sign-up(.*)",  // Sign-up page
+    "/api/webhooks(.*)", // for webhooks
     "/landing(.*)",  // Landing pages
     "/about",        // Public about page
     "/unauthorized", // Unauthorized page

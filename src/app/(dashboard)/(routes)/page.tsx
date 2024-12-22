@@ -1,9 +1,13 @@
+"use client"
+
+import { useUserContext } from '@/app/contextProviders/UserProvider'
 import React from 'react'
 
-export default function page() {
+export default function Dashboard() {
+    const currentUser = useUserContext();
     return (
         <div>
-            MAIN ROUTE FOR CLIENTS
+            {currentUser.role}
         </div>
     )
 }
