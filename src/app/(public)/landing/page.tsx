@@ -17,7 +17,7 @@ const LandingPage = () => {
                     <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight">Empower Your Fitness Journey</h1>
                     <p className="text-lg md:text-xl mb-8">The all-in-one fitness app for tracking workouts, monitoring progress, and staying motivated.</p>
                     <Link href="/sign-up">
-                        <Button className="bg-white text-black py-3 px-6 rounded-md font-medium hover:bg-gray-200 transition duration-300">
+                        <Button className="bg-white  text-black py-3 px-6 rounded-full font-medium hover:bg-gray-200 transition duration-300">
                             Start Now
                         </Button>
                     </Link>
@@ -25,7 +25,7 @@ const LandingPage = () => {
             </section>
 
             {/* Features Section */}
-            <section className="py-16 px-6 md:px-12 lg:px-24 bg-gray-900">
+            <section className="py-16 px-6 md:px-12 lg:px-24 bg-gradient-to-r from-black to-gray-900">
                 <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div className="text-center">
                         <TfiViewListAlt size={64} className="mx-auto mb-4" /> {/*Workouts Icon */}
@@ -64,16 +64,30 @@ const LandingPage = () => {
                 </div>
             </section>
 
-            {/* Call to Action Section */}
-            <section className="py-16 px-6 md:px-12 lg:px-24 bg-gray-900 text-center">
+            {/* Footer Section */}
+            <section className="py-14 px-6 md:px-12 lg:px-24 bg-gray-900 text-center">
                 <div className="container mx-auto">
-                    <h2 className="text-3xl font-semibold mb-4">Ready to Get Started?</h2>
-                    <p className="text-gray-300 mb-8">Download our app today and begin your fitness journey!</p>
-                    <button className="bg-white text-black py-3 px-6 rounded-md font-medium hover:bg-slate-200 transition duration-300">
-                        Download Now
-                    </button>
+                    <h2 className="text-4xl font-bold mb-6 text-white">Ready to Transform Your Fitness Journey?</h2>
+                    <p className="text-lg text-gray-300 mb-6">
+                        Take the first step towards a healthier, stronger, and more confident you.
+                        Download the Gymxfit app today and start achieving your goals!
+                    </p>
+                    <div className="flex flex-col md:flex-row justify-center items-center gap-6">
+                        <button className="bg-green-500 text-white py-3 px-8 rounded-md text-lg font-medium hover:bg-green-600 transition duration-300">
+                            Download Now
+                        </button>
+                        <Link href="/about">
+                            <Button className="bg-transparent border border-white text-white py-3 px-8 rounded-md text-lg font-medium hover:bg-white hover:text-black transition duration-300">
+                                Learn More
+                            </Button>
+                        </Link>
+                    </div>
+                </div>
+                <div className="mt-12 border-t border-gray-700 pt-6">
+                    <p className="text-sm text-gray-400">&copy; {new Date().getFullYear()} Gymxfit. All rights reserved.</p>
                 </div>
             </section>
+
         </div>
     );
 };
