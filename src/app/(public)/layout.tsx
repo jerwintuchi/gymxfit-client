@@ -6,7 +6,7 @@ const PublicLayout = ({ children }: { children: React.ReactNode }) => {
     return (
         <div className="h-screen">
             {/* Navbar */}
-            <div className="h-[70px] fixed inset-y-0 w-full z-50">
+            <div className="h-[70px] fixed inset-y-0 w-full z-50 ">
                 <MainNav />
             </div>
             {/* Main Content */}

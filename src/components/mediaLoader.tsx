@@ -5,7 +5,7 @@ interface SpinnerLoaderProps {
   width?: number,
   height?: number
 }
-const SpinnerLoader = ({ src, width, height }: SpinnerLoaderProps) => {
+const MediaLoader = ({ src, width, height }: SpinnerLoaderProps) => {
   return (
     <div className="flex items-center justify-content-center h-screen">
       <Image src={src} alt="loader" width={width} height={height} />
@@ -13,4 +13,4 @@ const SpinnerLoader = ({ src, width, height }: SpinnerLoaderProps) => {
   )
 }
 
-export default SpinnerLoader
+export default MediaLoader

@@ -1,6 +1,6 @@
 "use client";
 
-import SpinnerLoader from "@/components/spinnerLoader";
+import SpinnerLoader from "@/components/mediaLoader";
 import { SignIn, useAuth } from "@clerk/nextjs";
 
 export default function SignInPage() {

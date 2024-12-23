@@ -1,6 +1,6 @@
 const AboutPage = () => {
     return (
-        <div className="flex flex-col items-center bg-black text-white">
+        <div className="h-screen pt-[70px] flex flex-col items-center bg-black text-white">
             about
         </div>
     );

@@ -13,40 +13,45 @@ import {
 } from "@/components/ui/navigation-menu";
 import Link from "next/link";
 import { Button } from "./ui/button";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 export function MainNav() {
+    const currentRoute = usePathname();
+
     return (
-        <nav className="bg-black backdrop-filter backdrop-blur-sm text-white p-2 sticky top-0 z-50">
-            <div className="flex justify-center items-center p-2 gap-4">
+        <nav className="fixed top-0 left-0 right-0 z-50 py-3 px-6 md:px-12 lg:px-24 bg-gradient-to-b from-black/0 to-gray-900/50 backdrop-blur-sm border-b border-gray-800">
+            <div className="flex justify-between items-center gap-4">
                 <div className="flex gap-4">
                     <Link href="/landing">
-                        <Button variant="ghost" className="hover:bg-white hover:text-black">
+                        <Button variant="ghost" className="text-white hover:bg-black hover:text-white/55 text-md">
                             Home
                         </Button>
                     </Link>
                     <Link href="/about">
-                        <Button variant="ghost" className="hover:bg-white hover:text-black">
+                        <Button variant="ghost" className="text-white hover:bg-black hover:text-white/55 text-md">
                             About
                         </Button>
                     </Link>
+
+                    <NavigationMenu className="text-black">
+                        <NavigationMenuList>
+                            <NavigationMenuItem>
+                                <NavigationMenuTrigger>Getting Started</NavigationMenuTrigger>
+                                <NavigationMenuContent>
+                                    <ul className=" grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                                        <ListItem href="/sign-in" title="Sign In" className="hover:bg-black hover:text-white">
+                                            Access your personalized workout.
+                                        </ListItem>
+                                        <ListItem href="/sign-up" title="Register" className="hover:bg-black hover:text-white">
+                                            Join us today and unlock exclusive features crafted just for you.
+                                        </ListItem>
+                                    </ul>
+                                </NavigationMenuContent>
+                            </NavigationMenuItem>
+                        </NavigationMenuList>
+                    </NavigationMenu>
                 </div>
-                <NavigationMenu className="text-black">
-                    <NavigationMenuList>
-                        <NavigationMenuItem>
-                            <NavigationMenuTrigger>Getting Started</NavigationMenuTrigger>
-                            <NavigationMenuContent>
-                                <ul className=" grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                                    <ListItem href="/sign-in" title="Sign In" className="hover:bg-black hover:text-white">
-                                        Access your personalized workout dashboard.
-                                    </ListItem>
-                                    <ListItem href="/sign-up" title="Register" className="hover:bg-black hover:text-white">
-                                        Join us today and unlock exclusive features crafted just for you.
-                                    </ListItem>
-                                </ul>
-                            </NavigationMenuContent>
-                        </NavigationMenuItem>
-                    </NavigationMenuList>
-                </NavigationMenu>
             </div>
         </nav>
     );
