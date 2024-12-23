@@ -5,8 +5,8 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [{
         protocol: 'https',
-        hostname: 'static.wixstatic.com',
-        pathname: '/media/**', // Allow any path under /media/
+        hostname: '',
+        pathname: '//**', // Allow any path under //
       },], 
   },
 
