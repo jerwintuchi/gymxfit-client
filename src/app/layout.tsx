@@ -4,6 +4,7 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { UserProvider } from "./contextProviders/UserProvider";
 
+
 export default function RootLayoutClient({
   children,
 }: {
