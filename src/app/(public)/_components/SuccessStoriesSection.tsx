@@ -37,8 +37,9 @@ const SuccessStoriesSection = () => {
                             <Image
                                 src={story.image}
                                 alt={`${story.name}'s transformation`}
-                                width={150}
-                                height={150}
+                                width={100}
+                                height={100}
+                                style={{ height: "auto", width: "auto" }}
                                 className="rounded-full mb-4"
                             />
                             <h3 className="text-xl font-semibold mb-2 text-gray-300"><cite>{story.name}</cite></h3>

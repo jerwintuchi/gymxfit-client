@@ -10,6 +10,7 @@ const BenefitsSection = () => {
                         alt="Benefits Image"
                         width={300}
                         height={300}
+                        style={{ height: "auto", width: "auto" }}
                         className="rounded-3xl "
                     />
                 </div>
