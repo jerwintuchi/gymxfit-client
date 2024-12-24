@@ -9,7 +9,7 @@ export default function SignInPage() {
     if (!isLoaded) {
         return (
             <div className="flex flex-col items-center min-h-screen justify-center">
-                <SpinnerLoader src="/tube-spinner.svg" width={75} height={75} />
+                <SpinnerLoader src="/static/tube-spinner.svg" width={75} height={75} />
             </div>
         );
     }
