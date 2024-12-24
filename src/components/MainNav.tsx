@@ -37,12 +37,16 @@ export function MainNav() {
                                 <NavigationMenuTrigger>Getting Started</NavigationMenuTrigger>
                                 <NavigationMenuContent>
                                     <ul className=" grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                                        <ListItem href="/sign-in" title="Sign In" className="hover:bg-black hover:text-white">
-                                            Access your personalized workout.
-                                        </ListItem>
-                                        <ListItem href="/sign-up" title="Register" className="hover:bg-black hover:text-white">
-                                            Join us today and unlock exclusive features crafted just for you.
-                                        </ListItem>
+                                        <Link href="/sign-in" prefetch={true} legacyBehavior passHref>
+                                            <ListItem title="Sign In" className="hover:bg-black hover:text-white">
+                                                Access your personalized workout.
+                                            </ListItem>
+                                        </Link>
+                                        <Link href="/sign-up" prefetch={true} legacyBehavior passHref>
+                                            <ListItem href="/sign-up" title="Register" className="hover:bg-black hover:text-white">
+                                                Join us today and unlock exclusive features crafted just for you.
+                                            </ListItem>
+                                        </Link>
                                     </ul>
                                 </NavigationMenuContent>
                             </NavigationMenuItem>
