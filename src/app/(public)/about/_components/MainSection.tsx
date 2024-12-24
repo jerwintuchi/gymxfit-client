@@ -30,7 +30,7 @@ const MainHeroSection = ({ aboutDescription, missionParagraph, valuesList }: Mai
                     <div>
                         <div className="rounded-3xl overflow-hidden">
                             {/* MAP LOCATION */}
-                            <iframe src="https://www.google.com/maps/embed?pb=!4v1735036020427!6m8!1m7!1s-edeTeluKLjM_nuj_r3E3Q!2m2!1d14.70648285365623!2d120.9904085808995!3f323.1020580590271!4f-9.197778090185608!5f0.7820865974627469" width="600" height="450" style={iFrameStyle} allowFullScreen={true} loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+                            <iframe src="https://www.google.com/maps/embed?pb=!4v1735036020427!6m8!1m7!1s-edeTeluKLjM_nuj_r3E3Q!2m2!1d14.70648285365623!2d120.9904085808995!3f323.1020580590271!4f-9.197778090185608!5f0.7820865974627469" width="737" height="450" style={iFrameStyle} allowFullScreen={true} loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                         <div className="mt-6">
                             <h2 className="text-3xl font-semibold mb-2">Visit Us</h2>

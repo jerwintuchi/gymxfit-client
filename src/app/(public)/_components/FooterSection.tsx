@@ -16,7 +16,7 @@ const FooterSection = () => {
                             Get Started Now
                         </Button>
                     </Link>
-                    <Link href="/about">
+                    <Link href="/about" prefetch={true}>
                         <Button className="bg-transparent border border-white text-white py-3 px-8 rounded-md text-lg font-medium hover:bg-gray-600 hover:text-white transition duration-300">
                             Learn More
                         </Button>

@@ -25,7 +25,7 @@ export function MainNav() {
                             Home
                         </Button>
                     </Link>
-                    <Link href="/about">
+                    <Link href="/about" prefetch={true}>
                         <Button variant="ghost" className="text-white hover:bg-black hover:text-white/55 text-md">
                             About
                         </Button>
