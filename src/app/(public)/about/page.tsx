@@ -2,7 +2,7 @@ import MainHeroSection from "./_components/MainSection";
 import MainSectionList from "./_components/MainSectionList";
 
 const AboutPage = () => {
-
+    
     return (
         <MainHeroSection aboutDescription="We are passionate about helping you achieve your fitness goals. Our
                             state-of-the-art facility and experienced trainers provide the
