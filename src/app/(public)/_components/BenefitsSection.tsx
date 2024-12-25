@@ -3,7 +3,7 @@ const BenefitsSection = () => {
     return (
         <section className="py-16 px-6 md:px-12 lg:px-24 bg-black">
             <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24 items-center">
-                <div className="relative aspect-w-full aspect-h-full lg:h-full lg:w-[500px] md:aspect-auto md:h-[530px] sm:h-[530px] rounded-3xl overflow-hidden">
+                <div className="relative aspect-w-full aspect-h-full lg:h-full lg:w-aspect-auto md:aspect-auto md:h-[530px] sm:h-[530px] rounded-3xl overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black mix-blend-multiply rounded-3xl"></div> {/* Vignette Overlay */}
                     <Image
                         src={"/static/woman-px-nobg.png"}
