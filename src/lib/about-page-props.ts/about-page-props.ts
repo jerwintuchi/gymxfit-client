@@ -1,7 +1,7 @@
-import { ReactNode } from "react";
+import { ReactElement } from "react";
 
 export type MainSectionProps = {
-    aboutDescription: string,
-    missionParagraph: string,
-    valuesList: ReactNode,
+    aboutDescription: ReactElement,
+    missionParagraph: ReactElement,
+    valuesList: ReactElement,
 }

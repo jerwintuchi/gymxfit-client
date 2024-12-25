@@ -3,6 +3,7 @@
 import { MainSectionProps } from "@/lib/about-page-props.ts/about-page-props";
 import { useState, useEffect } from "react";
 import SpinnerLoader from "@/components/mediaLoader";
+import { FaSquareFacebook } from "react-icons/fa6";
 
 const iFrameStyle = {
     border: 0,
@@ -26,20 +27,13 @@ const MainHeroSection = ({ aboutDescription, missionParagraph, valuesList }: Mai
 
     return (
         <div className="pt-[70px] bg-black text-white overflow-hidden">
-            <section className="py-16 px-6 md:px-12 lg:px-24">
+            <section className="py-14 px-6 md:px-12 lg:px-24">
                 <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
-                    {/* Text Section */}
+                    {/* About Section  */}
                     <div>
-                        <h1 className="text-4xl font-bold mb-6">About Us</h1>
-                        <p className="text-lg mb-8 text-gray-300">{aboutDescription}</p>
-                        <p className="text-lg mb-8 text-gray-300">
-                            Our app is designed to complement your training, providing you with the tools you need to track your
-                            progress, stay motivated, and connect with our community.
-                        </p>
-                        <h2 className="text-2xl font-semibold mt-8 mb-4">Our Mission</h2>
-                        <p className="text-lg text-gray-300">{missionParagraph}</p>
-                        <h2 className="text-2xl font-semibold mt-8 mb-4">Our Values</h2>
-                        {valuesList}
+                        {aboutDescription} {/* COMPONENT PROPS*/}{/* About Section Description */}
+                        {missionParagraph} {/* COMPONENT PROPS*/}{/* About Mission Description */}
+                        {valuesList} {/* COMPONENT PROPS*/}{/* About Values Description */}
                     </div>
 
                     {/* Map Section */}
@@ -67,17 +61,23 @@ const MainHeroSection = ({ aboutDescription, missionParagraph, valuesList }: Mai
                             />
                         </div>
                         <div className="mt-6">
-                            <h2 className="text-3xl font-semibold mb-2">Visit Us</h2>
+                            <h2 className="text-3xl font-semibold mb-2 flex flex-row justify-center">Visit Us</h2>
                             <br />
-                            <p className="text-lg text-gray-300">
-                                <strong className="text-2xl">Gymxfit</strong>
-                                <br />
-                                191 Paso De Blas Rd.
-                                <br />
-                                Valenzuela City, 1442, Philippines
-                                <br />
-                                {"(+63) 0977 649 5770"}
-                            </p>
+                            <div className="container flex flex-row justify-between">
+                                <p className="text-lg text-gray-300">
+                                    <strong className="text-2xl">Gymxfit</strong>
+                                    <br />
+                                    191 Paso De Blas Rd.
+                                    <br />
+                                    Valenzuela City, 1442, Philippines
+                                    <br />
+                                    {"(+63) 0977 649 5770"}
+                                </p>
+                                <div className="socials flex flex-col items-center">
+                                    <FaSquareFacebook width={100} height={100} />
+                                    <p>asdf</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
