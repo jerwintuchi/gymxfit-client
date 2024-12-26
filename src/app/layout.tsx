@@ -18,11 +18,11 @@ export default function RootLayoutClient({
         },
       }}
     >
-      <UserProvider>
+      <UserProvider initialUser={undefined} >
         <html lang="en">
           <body>{children}</body>
         </html>
       </UserProvider>
     </ClerkProvider>
   );
-}
+} 

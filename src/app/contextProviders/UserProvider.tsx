@@ -13,15 +13,21 @@ interface UserContextType {
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
-export const UserProvider = ({ children }: { children: React.ReactNode }) => {
-    const [user, setUser] = useState<UserContextType>({
+export const UserProvider = ({
+    children,
+    initialUser = {
         userId: null,
         role: null,
         firstName: null,
         lastName: null,
         email: null,
         profilePicture: null,
-    });
+    },
+}: {
+    children: React.ReactNode;
+    initialUser?: UserContextType; // Made optional
+}) => {
+    const [user, setUser] = useState<UserContextType>(initialUser);
 
     const currentUser = useUserDetails(); // Fetch user details client-side
 
@@ -30,7 +36,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
             setUser({
                 userId: currentUser.id,
                 role: currentUser.publicMetadata?.role as Role[keyof Role] || null,
-                firstName: currentUser.firstName || null,
+                firstName: currentUser.firstName || "User",
                 lastName: currentUser.lastName || null,
                 email: currentUser.emailAddresses?.[0]?.emailAddress || null,
                 profilePicture: currentUser.imageUrl || null,
