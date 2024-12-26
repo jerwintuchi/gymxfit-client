@@ -13,9 +13,9 @@ const GreetingHeader = () => {
 
     return (
         <>
-            <div className='justify-center'>
-                <h1 className='text-4xl'>
-                    Good {capitalizedTime}, {displayName}
+            <div className='container'>
+                <h1 className='text-6xl font-sans slide-in'>
+                    Good {capitalizedTime} <a className='text-gray-400'>{displayName}</a>
                 </h1>
             </div>
 

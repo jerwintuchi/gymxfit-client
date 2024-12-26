@@ -28,13 +28,13 @@ export const SidebarItem = ({ icon: Icon, label, href }: SidebarItemProps) => {
             onClick={onClick}
             type="button"
             className={cn(
-                "flex items-center gap-x-2 text-slate-400 text-sm font-[500] pl-6 transition-all hover:text-slate-100",
+                "flex items-center gap-x-2 text-slate-400 text-lg font-[500] pl-6 transition-all hover:text-slate-100",
                 isActive && "text-white"
             )}
         >
             <div className="flex items-center gap-x-2 py-4">
                 <Icon
-                    size={22}
+                    size={26}
                     className={cn(
                         "text-slate-500 transition-colors",
                         isActive && "text-white",

@@ -12,6 +12,20 @@ body {
   }
 }
 
+/* SLIDE FROM LEFT TO RIGHT  */
+@keyframes slideInFromLeft {
+  0% {
+      transform: translateX(-5%);
+  }
+  100% {
+      transform: translateX(0);
+  }
+}
+
+.slide-in {
+  animation: slideInFromLeft 1.5s ease-out forwards;
+}
+
 .animate-gradient {
   background: linear-gradient(90deg, #000000, #434343, #808080);
   background-size: 200% 200%;

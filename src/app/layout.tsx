@@ -18,7 +18,7 @@ export default function RootLayoutClient({
         },
       }}
     >
-      <UserProvider initialUser={undefined} >
+      <UserProvider >
         <html lang="en">
           <body>{children}</body>
         </html>
