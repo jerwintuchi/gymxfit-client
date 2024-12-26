@@ -1,6 +1,6 @@
 import { SignedIn } from "@clerk/nextjs";
-import { Navbar } from "./_components/navbar";
-import Sidebar from "./_components/sidebar";
+import { Navbar } from "./_components/Sidebar Components/navbar";
+import Sidebar from "./_components/Sidebar Components/sidebar";
 
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {

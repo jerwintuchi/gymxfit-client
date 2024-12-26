@@ -1,31 +1,44 @@
 import React, { createContext, useEffect, useState, useContext } from "react";
 import { Role } from "@/lib/roles";
-import { useUserDetails } from "../utils/userData.ts/client";
+import { useUserDetails } from "../utils/userDataHelpers/client";
 
 interface UserContextType {
     userId: string | null;
     role: Role[keyof Role] | null;
+    firstName: string | null;
+    lastName: string | null;
+    email: string | null;
+    profilePicture: string | null;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
-    const [userId, setUserId] = useState<string | null>(null);
-    const [role, setRole] = useState<Role[keyof Role] | null>(null);
-    const currentUser = useUserDetails(); // Client-side hook for fetching user details
+    const [user, setUser] = useState<UserContextType>({
+        userId: null,
+        role: null,
+        firstName: null,
+        lastName: null,
+        email: null,
+        profilePicture: null,
+    });
+
+    const currentUser = useUserDetails(); // Fetch user details client-side
 
     useEffect(() => {
-        if (currentUser && currentUser.id) {
-            setUserId(currentUser.id);  // Assuming `userId` comes from user data
-            setRole(currentUser.publicMetadata?.role as Role[keyof Role] || null); // Safely accessing role
+        if (currentUser) {
+            setUser({
+                userId: currentUser.id,
+                role: currentUser.publicMetadata?.role as Role[keyof Role] || null,
+                firstName: currentUser.firstName || null,
+                lastName: currentUser.lastName || null,
+                email: currentUser.emailAddresses?.[0]?.emailAddress || null,
+                profilePicture: currentUser.imageUrl || null,
+            });
         }
     }, [currentUser]);
 
-    return (
-        <UserContext.Provider value={{ userId, role }}>
-            {children}
-        </UserContext.Provider>
-    );
+    return <UserContext.Provider value={user}>{children}</UserContext.Provider>;
 };
 
 export const useUserContext = () => {

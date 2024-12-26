@@ -1,5 +1,5 @@
 
-import { Logo } from "./logo";
+import { Logo } from "../logo";
 import { SidebarRoutes } from "./sidebar-routes";
 
 
