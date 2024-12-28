@@ -4,6 +4,7 @@ import UserDashboard from '../_components/Dashboard Component/UserDashboard';
 import GreetingHeader from '../_components/Dashboard Component/GreetingHeader';
 import { useUserContext } from '@/app/contextProviders/UserProvider';
 import ProgramCalendar from '../_components/Dashboard Component/_components/ProgramCalendar';
+import Nutrition from '../_components/Dashboard Component/_components/Nutrition';
 
 
 export default function Dashboard() {
@@ -27,8 +28,9 @@ export default function Dashboard() {
             <main className="container mx-auto p-4 font-sans">
                 <div className={`grid grid-cols-1 md:grid-rows-1 gap-4 text-white ${isLoaded ? "opacity-100" : "opacity-0"} transition-opacity duration-1000`}>
                     <UserDashboard />
-                    <div className="md:col-span-2">
+                    <div className="flex flex-col lg:flex-row gap-6">
                         <ProgramCalendar />
+                        <Nutrition />
                     </div>
                 </div>
             </main>
