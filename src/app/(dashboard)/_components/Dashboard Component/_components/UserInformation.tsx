@@ -14,7 +14,7 @@ const UserInformation = () => {
     }, []);*/
 
     return (
-        <div className="card bg-gray-800 p-6 rounded-lg">
+        <div className="card bg-gray-900 p-6 rounded-lg">
             <h3 className="text-lg font-semibold mb-4">User Information</h3>
             <div className="flex justify-between mb-4">
                 <span className="text-sm">Name:</span>

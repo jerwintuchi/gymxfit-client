@@ -5,7 +5,7 @@ import Sidebar from "./sidebar";
 export const MobileSidebar = () => {
     return (
         <div className="text-white">
-            <Sheet>
+            <Sheet aria-describedby="mobile-navigation">
                 <SheetTrigger className="md:hidden pr-4 hover:opacity-50 transition">
                     <Menu />
                 </SheetTrigger>

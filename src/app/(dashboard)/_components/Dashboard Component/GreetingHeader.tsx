@@ -11,13 +11,13 @@ type GreetingHeaderProps = {
     displayName: string,
 }
 
-const GreetingHeader = ({displayName} : GreetingHeaderProps) => {
+const GreetingHeader = ({ displayName }: GreetingHeaderProps) => {
 
     return (
         <>
             <div className='container'>
                 <h1 className='text-6xl font-sans slide-in'>
-                    Good {capitalizedTime} <a className='text-gray-400'>{displayName}</a>
+                    Good {capitalizedTime}, <a className='text-gray-400'>{displayName}</a>
                 </h1>
             </div>
 
