@@ -21,15 +21,14 @@ export default function Dashboard() {
 
         <div className="min-h-screen w-full bg-black">
             <header className={`bg-black text-white py-4 pl-6 text-start ${isLoaded ? "opacity-100" : "opacity-0"} transition-opacity duration-1000 `}>
-
                 <GreetingHeader displayName={displayName} />
             </header>
 
             <main className="container mx-auto p-4 font-sans">
                 <div className={`grid grid-cols-1 md:grid-rows-1 gap-4 text-white ${isLoaded ? "opacity-100" : "opacity-0"} transition-opacity duration-1000`}>
                     <UserDashboard />
-                    <ProgramCalendar />
-                    <div>
+                    <div className="md:col-span-2">
+                        <ProgramCalendar />
                     </div>
                 </div>
             </main>

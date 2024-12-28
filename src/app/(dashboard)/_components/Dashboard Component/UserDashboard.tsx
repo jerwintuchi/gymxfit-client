@@ -3,6 +3,7 @@ import AttendanceSummary from './_components/AttendanceSummary';
 import RecentActivity from './_components/RecentActivity';
 import Notifications from './_components/Notifications';
 import OverView from './_components/OverView';
+import UserGoal from './_components/UserGoal';
 
 function UserDashboard() {
     return (
@@ -27,6 +28,11 @@ function UserDashboard() {
                 <div className="md:col-span-1 lg:col-span-1"> {/* Spans 1 column on all screen sizes */}
                     <Notifications />
                 </div>
+                {/*GoalDropdown */}
+                <div className="md:col-span-1">
+                    <UserGoal />
+                </div>
+
 
                 {/* Example of a larger element spanning multiple rows and columns */}
                 {/* <div className="md:col-span-2 lg:col-span-3 row-span-2 bg-gray-800 rounded-lg p-6">

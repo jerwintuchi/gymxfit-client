@@ -37,6 +37,9 @@ export default function Exercises() {
             { name: "Squats", sets: 3, reps: 10 },
             { name: "Push-ups", sets: 3, reps: 12 },
             { name: "Plank", sets: 3, reps: 30 }, // Seconds instead of reps
+            { name: "Pull-ups", sets: 3, reps: 8 },
+            { name: "Lunges", sets: 3, reps: 10 },
+            { name: "Sit-ups", sets: 3, reps: 15 },
         ],
     };
 
