@@ -1,6 +1,11 @@
 //global type for user roles 
-export type Role = {
-    ADMIN: "ADMIN" | null,
-    MANAGER: "MANAGER" | null,
-    USER: "USER" | null,
+export enum UserRole {
+        ADMIN = "ADMIN",
+        MANAGER = "MANAGER",
+        USER = "USER",
+
 };
+
+export type RoleType = {
+    type: UserRole
+}

@@ -1,10 +1,10 @@
-import React, { createContext, useEffect, useState, useContext } from "react";
-import { Role } from "@/lib/roles";
+import React, { createContext, useEffect, useState, useContext, useMemo } from "react";
+import { UserRole } from "@/lib/roles";
 import { useUserDetails } from "../utils/userDataHelpers/client";
 
-interface UserContextType {
+export interface UserContextType {
     userId: string | null;
-    role: Role[keyof Role] | null;
+    role: UserRole | null;
     firstName: string | null;
     lastName: string | null;
     email: string | null;
@@ -30,21 +30,26 @@ export const UserProvider = ({
     const [user, setUser] = useState<UserContextType>(initialUser);
 
     const currentUser = useUserDetails(); // Fetch user details client-side
+    try {
+        useEffect(() => {
+            if (currentUser) {
+                setUser({
+                    userId: currentUser.id,
+                    role: currentUser.publicMetadata?.role as UserRole || null,
+                    firstName: currentUser.firstName || "User",
+                    lastName: currentUser.lastName || null,
+                    email: currentUser.emailAddresses?.[0]?.emailAddress || null,
+                    profilePicture: currentUser.imageUrl || null,
+                });
+            }
+        }, [currentUser]);
+    } catch (error) {
+        console.error("Error fetching user details:", error);
+    }
 
-    useEffect(() => {
-        if (currentUser) {
-            setUser({
-                userId: currentUser.id,
-                role: currentUser.publicMetadata?.role as Role[keyof Role] || null,
-                firstName: currentUser.firstName || "User",
-                lastName: currentUser.lastName || null,
-                email: currentUser.emailAddresses?.[0]?.emailAddress || null,
-                profilePicture: currentUser.imageUrl || null,
-            });
-        }
-    }, [currentUser]);
+    const memoizedUser = useMemo(() => user, [user])
 
-    return <UserContext.Provider value={user}>{children}</UserContext.Provider>;
+    return <UserContext.Provider value={memoizedUser}>{children}</UserContext.Provider>;
 };
 
 export const useUserContext = () => {
