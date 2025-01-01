@@ -1,9 +1,10 @@
-import React from 'react'
+
+import { useState } from 'react';
 import GoalDropdown from './GoalDropdown'
 
 
 export default function UserGoal() {
-    const [goal, setGoal] = React.useState('setting my goal');
+    const [goal, setGoal] = useState('setting my goal');
 
     return (
         <div className="flex flex-col bg-gray-900 p-4 rounded-lg border border-gray-800">
