@@ -1,12 +1,18 @@
+import React from 'react';
+import AttendanceHeader from './_components/AttendanceHeader';
+import QRScanner from './_components/QRScanner';
+import AttendanceLogs from './_components/AttendanceLogs';
 
-export default function Attendance() {
+export default function AttendancePage() {
+
     return (
-        <div className="text-white min-h-screen w-full bg-black">
-            <h1 className="text-4xl font-bold mb-6">Attendance</h1>
-            <input
-                type="date"
-                className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-800 text-white"
-            />
+        <div className="p-6 w-full mx-auto bg-black text-gray-200">
+            {/* Attendance Header */}
+            <AttendanceHeader />
+            {/* QR Scanner Section */}
+            <QRScanner />
+            {/* Attendance Log */}
+            <AttendanceLogs />
         </div>
-    )
+    );
 }
