@@ -3,6 +3,7 @@ import GoalDropdown from './GoalDropdown';
 import axios from 'axios';
 import { useUserContext } from '@/app/contextProviders/UserProvider';
 import { showPromiseToast } from '@/app/utils/toasts/showPromiseToast';
+import { Button } from '@/components/ui/button';
 
 
 const UserGoal = () => {
@@ -63,13 +64,31 @@ const UserGoal = () => {
             goalDisplay = 'Lean Bulking';
             break;
         default:
-            goalDisplay = 'Select Goal';
+            goalDisplay = 'setting up my Goal';
     }
-
+    const showToast = () => {
+        showPromiseToast(
+            axios.post('http://localhost:3000', {
+                userId: userId,
+                goal: 'BULK',
+            }),
+            {
+                loading: 'Updating goal...',
+                success: 'Goal updated successfully!',
+                error: 'Error updating goal',
+            }
+        );
+    }
     return (
         <div className="flex flex-col bg-gray-900 p-4 rounded-lg border border-gray-800">
-            <p className="text-center text-lg font-semibold mb-4">{`I'm currently ${goalDisplay}`}</p>
+            <p className="text-center text-lg font-semibold mb-4">{goal ? (`I'm currently ${goalDisplay}`) : ('What is your fitness goal?')}</p>
             <GoalDropdown goal={currentGoal} setGoal={handleGoalUpdate} />
+            <div>
+                <Button onClick={showToast}>
+                    TEST BUTTON
+                </Button>
+            </div>
+
         </div>
     );
 };
