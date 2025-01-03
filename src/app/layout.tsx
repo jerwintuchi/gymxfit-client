@@ -3,6 +3,7 @@
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { UserProvider } from "./contextProviders/UserProvider";
+import { Toaster } from "react-hot-toast";
 
 
 export default function RootLayoutClient({
@@ -20,7 +21,9 @@ export default function RootLayoutClient({
     >
       <UserProvider >
         <html lang="en">
-          <body>{children}</body>
+          <body>
+            <Toaster position="top-center" reverseOrder={false} />
+            {children}</body>
         </html>
       </UserProvider>
     </ClerkProvider>

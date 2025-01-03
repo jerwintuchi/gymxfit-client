@@ -5,7 +5,9 @@ import Notifications from './_components/Notifications';
 import OverView from './_components/OverView';
 import UserGoal from './_components/UserGoal';
 
-function UserDashboard() {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const UserDashboard = () => {
+
     return (
         <div className="container mx-auto p-6 text-white">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 auto-rows-[minmax(150px, auto)]"> {/* Bento Grid Setup */}

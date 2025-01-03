@@ -7,6 +7,9 @@ type GoalOptions = {
     setGoal: (position: string) => void
 }
 export default function GoalDropdown({ goal, setGoal, }: GoalOptions) {
+    const goals = ["BULK", "CUT", "BODY_RECOMPOSITION", "LEAN_BULK"];
+
+
     return (
         <DropdownMenu>
             <DropdownMenuTrigger className='text-white border-white border-2 rounded-full px-4 py-2 hover:bg-white hover:text-black'>Set Goal</DropdownMenuTrigger>
@@ -14,10 +17,18 @@ export default function GoalDropdown({ goal, setGoal, }: GoalOptions) {
                 <DropdownMenuLabel>Select your goal</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuRadioGroup value={goal} onValueChange={setGoal}>
-                    <DropdownMenuRadioItem value="Bulking">Bulking</DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value="Cutting">Cutting</DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value="Body Recompositioning">Body Recompositioning</DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value="Lean Bulking">Lean Bulking</DropdownMenuRadioItem>
+                    {goals.map((options) => (
+                        <DropdownMenuRadioItem
+                            key={options}
+                            value={options}
+                            disabled={options === goal}
+                        >
+                            {options === "BULK" && "Bulking"}
+                            {options === "CUT" && "Cutting"}
+                            {options === "BODY_RECOMPOSITION" && "Body Recompositioning"}
+                            {options === "LEAN_BULK" && "Lean Bulking"}
+                        </DropdownMenuRadioItem>
+                    ))}
                 </DropdownMenuRadioGroup>
             </DropdownMenuContent>
         </DropdownMenu>
