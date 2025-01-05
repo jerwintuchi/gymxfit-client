@@ -70,7 +70,7 @@ export const UserProvider = ({
 
             // Parse the token to extract user data
             try {
-                const decodedToken: CustomJwtSessionClaims = JSON.parse(atob(token.split(".")[1]));
+                const decodedToken = JSON.parse(Buffer.from(token.split(".")[1], "base64").toString("utf-8")) as CustomJwtSessionClaims;
                 /*console.log("user id : ", decodedToken.id)
                 console.log("user role : ", decodedToken.role)
                 console.log("user fullName : ", decodedToken.fullName)

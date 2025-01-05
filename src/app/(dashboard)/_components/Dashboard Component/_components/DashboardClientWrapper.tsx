@@ -17,9 +17,9 @@ const DashboardClientWrapper = () => {
     }, [])
 
     // Access the user context
-    const { firstName } = useUserContext();
+    const { fullName } = useUserContext();
     // Set a fallback display name if `firstName` is null or undefined
-    const displayName = firstName || "User";
+    const displayName = fullName || "User";
     return (
         <div className={`${isLoaded ? "opacity-100" : "opacity-0"} transition-opacity duration-1000`}>
             {/* Render the GreetingHeader with the display name */}
