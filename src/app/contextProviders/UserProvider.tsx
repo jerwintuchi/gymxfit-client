@@ -1,15 +1,14 @@
 // context/UserProvider.tsx
 import React, { createContext, useEffect, useContext, useReducer, Dispatch } from "react";
-import { UserRole } from "@/lib/roles";
-import { useUserDetails } from "../utils/userDataHelpers/client";
-import axios from "axios";
+import { UserRole } from "../../../types/roles";
+import { useAuth } from "@clerk/nextjs";
 
 const devUrl = process.env.NEXT_PUBLIC_BASE_URL_DEV;
+
 export interface UserContextType {
     userId: string | null;
     role: UserRole | null;
-    firstName: string | null;
-    lastName: string | null;
+    fullName: string | null;
     email: string | null;
     profilePicture: string | null;
     goal: string | null;
@@ -32,8 +31,10 @@ interface SetGoalAction {
 
 type Action = SetUserAction | SetGoalAction;
 
-const UserContext = createContext<UserContextType | undefined>(undefined);
+// Create Context
+const UserContext = createContext<UserContextValue | undefined>(undefined);
 
+// Reducer to handle state updates
 const userReducer = (state: UserContextType, action: Action): UserContextType => {
     switch (action.type) {
         case "SET_USER":
@@ -50,8 +51,7 @@ export const UserProvider = ({
     initialUser = {
         userId: null,
         role: null,
-        firstName: null,
-        lastName: null,
+        fullName: null,
         email: null,
         profilePicture: null,
         goal: null,
@@ -61,39 +61,62 @@ export const UserProvider = ({
     initialUser?: UserContextType;
 }) => {
     const [user, dispatch] = useReducer(userReducer, initialUser);
-    const currentUser = useUserDetails();
+    const { getToken } = useAuth();
 
     useEffect(() => {
-        const fetchGoal = async () => {
-            if (currentUser?.id) {
-                try {
-                    const response = await axios.get(`${devUrl}/users/get/goal?userId=${currentUser.id}`);
-                    const goal = response.data?.goal || "Setting goal";
-                    dispatch({ type: "SET_GOAL", payload: { goal } });
-                } catch (error) {
-                    console.error("Error fetching user goal:", error);
+        const fetchUserData = async () => {
+            const token = await getToken();
+            if (!token) return;
+
+            // Parse the token to extract user data
+            try {
+                const decodedToken: CustomJwtSessionClaims = JSON.parse(atob(token.split(".")[1]));
+                /*console.log("user id : ", decodedToken.id)
+                console.log("user role : ", decodedToken.role)
+                console.log("user fullName : ", decodedToken.fullName)
+                console.log("user email : ", decodedToken.email)
+                console.log("user image url : ", decodedToken.profilePicture)*/
+                // Dispatch the user data to the context
+                dispatch({
+                    type: "SET_USER",
+                    payload: {
+                        userId: decodedToken.id,
+                        role: decodedToken.role as UserRole || null,
+                        fullName: decodedToken.fullName,
+                        email: decodedToken.email || null,
+                        profilePicture: decodedToken.profilePicture || null,
+                    },
+                });
+
+                // Fetch the user goal if available
+                if (decodedToken.id) {
+                    try {
+                        const response = await fetch(`${devUrl}/users/get/goal?userId=${decodedToken.id}`, {
+                            headers: {
+                                "Authorization": `Bearer ${token}`,
+                            },
+                        });
+                        if (!response.ok) {
+                            throw new Error("Failed to fetch user goal");
+                        }
+                        const data = await response.json();
+                        const goal = data?.goal || "Setting goal";
+                        console.log(" user goal : ", goal);
+                        dispatch({ type: "SET_GOAL", payload: { goal } });
+                    } catch (error) {
+                        console.error("Error fetching user goal:", error);
+                    }
                 }
+            } catch (error) {
+                console.error("Error decoding JWT token:", error);
             }
         };
 
-        if (currentUser) {
-            dispatch({
-                type: "SET_USER",
-                payload: {
-                    userId: currentUser.id,
-                    role: currentUser.publicMetadata?.role as UserRole || null,
-                    firstName: currentUser.firstName || "User",
-                    lastName: currentUser.lastName || null,
-                    email: currentUser.emailAddresses?.[0]?.emailAddress || null,
-                    profilePicture: currentUser.imageUrl || null,
-                },
-            });
 
-            fetchGoal();
-        }
-    }, [currentUser]);
+        fetchUserData();
+    }, [getToken]);
 
-    return <UserContext.Provider value={{ ...user, dispatch } as UserContextValue}>{children}</UserContext.Provider>;
+    return <UserContext.Provider value={{ ...user, dispatch }}>{children}</UserContext.Provider>;
 };
 
 export const useUserContext = () => {
