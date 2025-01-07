@@ -55,7 +55,7 @@ export const UserProvider = ({
     initialUser?: UserContextType;
 }) => {
     const [user, dispatch] = useReducer(userReducer, initialUser || defaultUserState);
-    const { getToken, isSignedIn, isLoaded } = useAuth();
+    const { getToken, isSignedIn } = useAuth();
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -98,10 +98,10 @@ export const UserProvider = ({
             }
         };
 
-        if (isLoaded) {
+        if (isSignedIn) {
             fetchUserData();
         }
-    }, [getToken, isSignedIn, isLoaded]);
+    }, [getToken, isSignedIn]);
 
     return <UserContext.Provider value={{ ...user, dispatch, loading }}>{children}</UserContext.Provider>;
 };
