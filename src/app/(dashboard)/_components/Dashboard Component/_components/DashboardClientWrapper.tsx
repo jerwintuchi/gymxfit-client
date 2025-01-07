@@ -26,7 +26,7 @@ const DashboardClientWrapper = () => {
     if (loading) {
         return (
             <div className="flex flex-col items-center min-h-screen justify-center">
-                <MediaLoader src="/static/tube-spinner.svg" width={75} height={75} />
+                <MediaLoader src="/static/spinning-dot2.svg" width={125} height={125} />
             </div>
 
 
