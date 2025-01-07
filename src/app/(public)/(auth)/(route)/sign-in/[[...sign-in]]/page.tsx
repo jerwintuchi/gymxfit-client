@@ -1,6 +1,6 @@
 "use client";
 
-import SpinnerLoader from "@/components/mediaLoader";
+import MediaLoader from "@/components/MediaLoader";
 import { SignIn, useAuth } from "@clerk/nextjs";
 
 export default function SignInPage() {
@@ -9,7 +9,7 @@ export default function SignInPage() {
     if (!isLoaded) {
         return (
             <div className="flex flex-col items-center min-h-screen justify-center">
-                <SpinnerLoader src="/static/tube-spinner.svg" width={75} height={75} />
+                <MediaLoader src="/static/tube-spinner.svg" width={75} height={75} />
             </div>
         );
     }

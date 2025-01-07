@@ -1,7 +1,8 @@
-// context/UserProvider.tsx
-import React, { createContext, useEffect, useContext, useReducer, Dispatch } from "react";
+import React, { createContext, useEffect, useContext, useReducer, Dispatch, useState } from "react";
 import { UserRole } from "../../../types/roles";
 import { useAuth } from "@clerk/nextjs";
+import { decodeJwtToken } from "../utils/userDataHelpers/server";
+import { defaultUserState } from "../utils/objects";
 
 const devUrl = process.env.NEXT_PUBLIC_BASE_URL_DEV;
 
@@ -16,6 +17,7 @@ export interface UserContextType {
 
 interface UserContextValue extends UserContextType {
     dispatch: Dispatch<Action>;
+    loading: boolean;
 }
 
 // Action Types
@@ -34,7 +36,6 @@ type Action = SetUserAction | SetGoalAction;
 // Create Context
 const UserContext = createContext<UserContextValue | undefined>(undefined);
 
-// Reducer to handle state updates
 const userReducer = (state: UserContextType, action: Action): UserContextType => {
     switch (action.type) {
         case "SET_USER":
@@ -48,79 +49,65 @@ const userReducer = (state: UserContextType, action: Action): UserContextType =>
 
 export const UserProvider = ({
     children,
-    initialUser = {
-        userId: null,
-        role: null,
-        fullName: null,
-        email: null,
-        profilePicture: null,
-        goal: null,
-    },
+    initialUser = defaultUserState,
 }: {
     children: React.ReactNode;
     initialUser?: UserContextType;
 }) => {
-    const [user, dispatch] = useReducer(userReducer, initialUser);
-    const { getToken } = useAuth();
+    const [user, dispatch] = useReducer(userReducer, initialUser || defaultUserState);
+    const { getToken, isSignedIn, isLoaded } = useAuth();
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchUserData = async () => {
+            setLoading(true);
             const token = await getToken();
-            if (!token) return;
+            if (!token || !isSignedIn) {
+                console.log("User is not signed in or auth state is not loaded");
+                setLoading(false);
+                return;
+            }
 
-            // Parse the token to extract user data
             try {
-                const decodedToken = JSON.parse(Buffer.from(token.split(".")[1], "base64").toString("utf-8")) as CustomJwtSessionClaims;
-                /*console.log("user id : ", decodedToken.id)
-                console.log("user role : ", decodedToken.role)
-                console.log("user fullName : ", decodedToken.fullName)
-                console.log("user email : ", decodedToken.email)
-                console.log("user image url : ", decodedToken.profilePicture)*/
-                // Dispatch the user data to the context
+                const decodedToken = await decodeJwtToken(token);
+                if (!decodedToken || !decodedToken.id) throw new Error("Invalid token structure.");
+
                 dispatch({
                     type: "SET_USER",
                     payload: {
                         userId: decodedToken.id,
-                        role: decodedToken.role as UserRole || null,
+                        role: (decodedToken.role as UserRole) || null,
                         fullName: decodedToken.fullName,
                         email: decodedToken.email || null,
                         profilePicture: decodedToken.profilePicture || null,
                     },
                 });
 
-                // Fetch the user goal if available
-                if (decodedToken.id) {
-                    try {
-                        const response = await fetch(`${devUrl}/users/get/goal?userId=${decodedToken.id}`, {
-                            headers: {
-                                "Authorization": `Bearer ${token}`,
-                            },
-                        });
-                        if (!response.ok) {
-                            throw new Error("Failed to fetch user goal");
-                        }
-                        const data = await response.json();
-                        const goal = data?.goal || "Setting goal";
-                        console.log(" user goal : ", goal);
-                        dispatch({ type: "SET_GOAL", payload: { goal } });
-                    } catch (error) {
-                        console.error("Error fetching user goal:", error);
-                    }
-                }
+                const response = await fetch(`${devUrl}/users/get/goal?userId=${decodedToken.id}`, {
+                    headers: { Authorization: `Bearer ${token}` },
+                });
+                if (!response.ok) throw new Error("Failed to fetch user goal");
+
+                const data = await response.json();
+                const goal = data?.goal || "Setting goal";
+                dispatch({ type: "SET_GOAL", payload: { goal } });
             } catch (error) {
-                console.error("Error decoding JWT token:", error);
+                console.error("Error fetching user data or goal:", error);
+            } finally {
+                setLoading(false);
             }
         };
 
+        if (isLoaded) {
+            fetchUserData();
+        }
+    }, [getToken, isSignedIn, isLoaded]);
 
-        fetchUserData();
-    }, [getToken]);
-
-    return <UserContext.Provider value={{ ...user, dispatch }}>{children}</UserContext.Provider>;
+    return <UserContext.Provider value={{ ...user, dispatch, loading }}>{children}</UserContext.Provider>;
 };
 
 export const useUserContext = () => {
-    const context = useContext(UserContext) as UserContextValue;
+    const context = useContext(UserContext);
     if (!context) {
         throw new Error("useUserContext must be used within a UserProvider");
     }

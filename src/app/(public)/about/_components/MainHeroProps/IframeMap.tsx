@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useEffect, useState } from 'react'
-import SpinnerLoader from '@/components/mediaLoader';
+import SpinnerLoader from '@/components/MediaLoader';
 const iFrameStyle = {
     border: 0,
 };

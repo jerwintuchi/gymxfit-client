@@ -6,6 +6,8 @@ import GreetingHeader from '../GreetingHeader';
 import UserDashboard from '../UserDashboard';
 import ProgramCalendar from './ProgramCalendar';
 import Nutrition from './Nutrition';
+import MediaLoader from '@/components/MediaLoader';
+
 
 
 const DashboardClientWrapper = () => {
@@ -17,9 +19,20 @@ const DashboardClientWrapper = () => {
     }, [])
 
     // Access the user context
-    const { fullName } = useUserContext();
+    const { fullName, loading } = useUserContext();
     // Set a fallback display name if `firstName` is null or undefined
     const displayName = fullName || "User";
+
+    if (loading) {
+        return (
+            <div className="flex flex-col items-center min-h-screen justify-center">
+                <MediaLoader src="/static/tube-spinner.svg" width={75} height={75} />
+            </div>
+
+
+        )
+    }
+
     return (
         <div className={`${isLoaded ? "opacity-100" : "opacity-0"} transition-opacity duration-1000`}>
             {/* Render the GreetingHeader with the display name */}
