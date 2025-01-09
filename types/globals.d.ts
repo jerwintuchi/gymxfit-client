@@ -11,5 +11,7 @@ declare global {
     profilePicture: string
    
   }
+  
+  type ValidUrl = `https://${string}`
 }
-type validUrl = `https://${string}`
+

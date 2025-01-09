@@ -1,15 +1,16 @@
 import React, { createContext, useEffect, useContext, useReducer, Dispatch, useState } from "react";
-import { UserRole } from "../../../types/roles";
-import { useAuth } from "@clerk/nextjs";
-import { decodeJwtToken } from "../utils/userDataHelpers/server";
-import { defaultUserState } from "../utils/objects";
 
-const devUrl = process.env.NEXT_PUBLIC_BASE_URL_DEV;
+import { useUserDetails } from "../utils/userDataHelpers/client";
+
+import { UserRole } from "../../../types/roles";
+import { fetchUserGoal } from "../utils/userDataHelpers/server";
+
 
 export interface UserContextType {
     userId: string | null;
     role: UserRole | null;
-    fullName: string | null;
+    firstName: string | null;
+    lastName: string | null;
     email: string | null;
     profilePicture: string | null;
     goal: string | null;
@@ -33,7 +34,16 @@ interface SetGoalAction {
 
 type Action = SetUserAction | SetGoalAction;
 
-// Create Context
+const defaultUser: UserContextType = {
+    userId: null,
+    role: null,
+    firstName: null,
+    lastName: null,
+    email: null,
+    profilePicture: null,
+    goal: null,
+};
+
 const UserContext = createContext<UserContextValue | undefined>(undefined);
 
 const userReducer = (state: UserContextType, action: Action): UserContextType => {
@@ -49,60 +59,52 @@ const userReducer = (state: UserContextType, action: Action): UserContextType =>
 
 export const UserProvider = ({
     children,
-    initialUser = defaultUserState,
+    initialUser,
 }: {
     children: React.ReactNode;
     initialUser?: UserContextType;
 }) => {
-    const [user, dispatch] = useReducer(userReducer, initialUser || defaultUserState);
-    const { getToken, isSignedIn } = useAuth();
-    const [loading, setLoading] = useState(true);
+    const [user, dispatch] = useReducer(userReducer, initialUser || defaultUser);
+    const [loading, setLoading] = useState(false);
+    const { currentUser, isSignedIn } = useUserDetails();
 
     useEffect(() => {
         const fetchUserData = async () => {
-            setLoading(true);
-            const token = await getToken();
-            if (!token || !isSignedIn) {
-                console.log("User is not signed in or auth state is not loaded");
-                setLoading(false);
-                return;
-            }
+            if (!currentUser) { return; }
+
 
             try {
-                const decodedToken = await decodeJwtToken(token);
-                if (!decodedToken || !decodedToken.id) throw new Error("Invalid token structure.");
-
                 dispatch({
                     type: "SET_USER",
                     payload: {
-                        userId: decodedToken.id,
-                        role: (decodedToken.role as UserRole) || null,
-                        fullName: decodedToken.fullName,
-                        email: decodedToken.email || null,
-                        profilePicture: decodedToken.profilePicture || null,
+                        userId: currentUser.id,
+                        role: (currentUser.publicMetadata?.role as UserRole) || null,
+                        firstName: currentUser.firstName,
+                        lastName: currentUser.lastName,
+                        email: currentUser.emailAddresses[0].emailAddress,
+                        profilePicture: currentUser.imageUrl,
                     },
                 });
 
-                const response = await fetch(`${devUrl}/users/get/goal?userId=${decodedToken.id}`, {
-                    headers: { Authorization: `Bearer ${token}` },
-                });
-                if (!response.ok) throw new Error("Failed to fetch user goal");
-
-                const data = await response.json();
-                const goal = data?.goal || "Setting goal";
-                dispatch({ type: "SET_GOAL", payload: { goal } });
+                const userGoal = await fetchUserGoal(currentUser.id);
+                if (!userGoal) { return; }
+                else {
+                    dispatch({ type: "SET_GOAL", payload: { goal: userGoal || "No goal set" } });
+                }
             } catch (error) {
-                console.error("Error fetching user data or goal:", error);
+                console.error("Error fetching user data:", error);
             } finally {
                 setLoading(false);
             }
         };
 
-        if (isSignedIn) {
+        if (isSignedIn && currentUser) {
             fetchUserData();
         }
-    }, [getToken, isSignedIn]);
-
+        else {
+            setLoading(true);
+        }
+    }, [currentUser, isSignedIn]);
     return <UserContext.Provider value={{ ...user, dispatch, loading }}>{children}</UserContext.Provider>;
 };
 

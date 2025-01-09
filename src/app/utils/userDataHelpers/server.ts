@@ -1,5 +1,9 @@
 "use server"
+
+import { devUrl } from "@/lib/global-variables";
 import { auth } from "@clerk/nextjs/server";
+import axios from "axios";
+
 
 
 export async function getUserId() {
@@ -17,4 +21,18 @@ export async function decodeJwtToken(token: string): Promise<CustomJwtSessionCla
         return null;
     }
 }
+
+export async function fetchUserGoal(userId: string): Promise<string | null> {
+    if (!userId) {
+        throw new Error("Unauthorized");
+    }
+    try {
+        const { data } = await axios.get(`${devUrl}/users/get/goal`, { params: { userId } });
+        return data.goal || "No goal set";
+    } catch (error) {
+        console.error("Error fetching user goal:", error);
+        throw new Error("Failed to fetch user goal");
+    }
+    }
+
 

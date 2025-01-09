@@ -3,7 +3,6 @@ import GoalDropdown from './GoalDropdown';
 import axios from 'axios';
 import { useUserContext } from '@/app/contextProviders/UserProvider';
 import { showPromiseToast } from '@/app/utils/toasts/showPromiseToast';
-import { Button } from '@/components/ui/button';
 
 
 const UserGoal = () => {
@@ -23,7 +22,7 @@ const UserGoal = () => {
         }
 
         // Create a promise for the goal update request
-        const goalUpdatePromise = axios.post('http://localhost:3000/users/update/goal', {
+        const goalUpdatePromise = axios.post(`${process.env.NEXT_PUBLIC_BASE_URL_DEV}/users/update/goal`, {
             userId: userId,
             goal: selectedGoal,
         });
@@ -40,7 +39,7 @@ const UserGoal = () => {
             const response = await goalUpdatePromise;
             if (response.status === 200) {
                 setCurrentGoal(selectedGoal);
-                dispatch({ type: 'SET_GOAL', payload: { goal: selectedGoal } });
+                dispatch({ type: 'SET_USER', payload: { goal: selectedGoal } });
                 console.log('Goal updated successfully to', selectedGoal);
             }
         } catch (error) {
@@ -66,27 +65,13 @@ const UserGoal = () => {
         default:
             goalDisplay = 'setting up my Goal';
     }
-    const showToast = () => {
-        showPromiseToast(
-            axios.post('http://localhost:3000', {
-                userId: userId,
-                goal: 'BULK',
-            }),
-            {
-                loading: 'Updating goal...',
-                success: 'Goal updated successfully!',
-                error: 'Error updating goal',
-            }
-        );
-    }
+
     return (
+
         <div className="flex flex-col bg-gray-900 p-4 rounded-lg border border-gray-800">
             <p className="text-center text-lg font-semibold mb-4">{goal ? (`I'm currently ${goalDisplay}`) : ('What is your fitness goal?')}</p>
             <GoalDropdown goal={currentGoal} setGoal={handleGoalUpdate} />
             <div>
-                <Button onClick={showToast}>
-                    TEST BUTTON
-                </Button>
             </div>
 
         </div>

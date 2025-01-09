@@ -19,9 +19,9 @@ const DashboardClientWrapper = () => {
     }, [])
 
     // Access the user context
-    const { fullName, loading } = useUserContext();
+    const { firstName, loading } = useUserContext();
     // Set a fallback display name if `firstName` is null or undefined
-    const displayName = fullName || "User";
+    const displayName = firstName || "User";
 
     if (loading) {
         return (
