@@ -104,6 +104,8 @@ export const UserProvider = ({
         else {
             setLoading(true);
         }
+
+
     }, [currentUser, isSignedIn]);
     return <UserContext.Provider value={{ ...user, dispatch, loading }}>{children}</UserContext.Provider>;
 };
