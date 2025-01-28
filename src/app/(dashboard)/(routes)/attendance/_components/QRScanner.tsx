@@ -66,10 +66,12 @@ export default function QRScanner() {
             <div className="flex flex-col items-center">
                 {/* QR Scanner or Message */}
                 {isScanning && !scannedCode ? (
-                    <div id="reader" className="text-center text-indigo-700" />
+                    <div id="reader" className="text-center items-center text-indigo-700" />
                 ) : (
                     <p className="text-gray-500 text-sm">
-                        Scanned QR Code: {scannedCode}
+                        {scannedCode
+                            ? "Attendance logged successfully!"
+                            : "Scan a QR code to log your attendance."}
                     </p>
                 )
                 }
@@ -86,5 +88,6 @@ export default function QRScanner() {
                 )}
             </div>
         </div>
+
     );
 }
